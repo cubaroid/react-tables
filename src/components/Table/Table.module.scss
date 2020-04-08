@@ -1,0 +1,67 @@
+$cellPadding: 15px;
+$border: 1px solid #ccc;
+
+.table {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+	border-spacing: 0;
+	background: #fff;
+	margin-bottom: 20px;
+
+	&__wrapper {
+		display: flex;
+		align-items: flex-end;
+		width: 100%;
+		flex-direction: column;
+	}
+
+	&__header {
+		color: white;
+		background: #0a508c;
+		text-align: left;
+
+		&--cell {
+			font-weight: normal;
+			padding: $cellPadding;
+			color: rgb(134, 140, 150);
+			word-break: break-word;
+		}
+	}
+
+	&__actions {
+		margin-bottom: 10px;
+	}
+
+	&__row {
+		border-bottom: $border;
+	}
+
+	&__cell {
+		padding: $cellPadding;
+		color: rgb(134, 140, 150);
+		border-right: $border;
+			word-break: break-word;
+
+		&--actions {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-around;
+		}
+
+		&--edit,
+		&--remove {
+			text-decoration: underline;
+			cursor: pointer;
+		}
+
+		&--edit {
+			color: blue;
+		}
+
+		&--remove {
+			color: red;
+		}
+	}
+}
+

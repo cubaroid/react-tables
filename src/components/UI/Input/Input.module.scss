@@ -1,0 +1,38 @@
+.Input {
+	margin-bottom: 15px;
+
+	input {
+		display: block;
+		box-sizing: border-box;
+		padding: 10px;
+		width: 100%;
+		outline: none;
+		transition: all .3s ease-in-out;
+
+		border-style: solid;
+		border-width: 1px;
+		border-color: rgb(195, 204, 217);
+		border-radius: 3px;
+		background-color: rgb(255, 255, 255);
+		font-size: 12px;
+		font-family: "Roboto";
+		color: rgb(134, 140, 150);
+		line-height: 2.5;
+		text-align: left;
+	}
+
+	span {
+		color: #f01f30;
+		font-size: 12px;
+		font-weight: bold;
+	}
+
+}
+
+.Invalid {
+	color: #f01f30;
+
+	& input {
+		border: 1px solid red;
+	}
+}
