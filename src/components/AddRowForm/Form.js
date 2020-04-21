@@ -53,7 +53,15 @@ export const Form = props => {
 		},
 	}
 
+	const editRowAddressInitialState = {
+		tableId: null,
+		rowId:null
+	}
+
 	const [isFormValid, setIsFormValid] = useState(false)
+	const [isEditMode, setIsEditMode] = useState(false)
+	const [editRowAddress, setEditRowAddress] = useState(editRowAddressInitialState)
+
 	const [formControls, setFormControls] = useState(initialFormControls)
 
 	const onChangeHandler = (event, key) => {
@@ -77,13 +85,17 @@ export const Form = props => {
 	const submitForm = (e) => {
 		e.preventDefault()
 
-		const newRow = Object.keys(formControls).map( key => {
-			return formControls[key].value
-		})
+		if ( isEditMode ) {
+			setIsEditMode(false)
+			setEditRowAddress(editRowAddressInitialState)
+		} else {
+			const newRow = Object.keys(formControls).map( key => {
+				return formControls[key].value
+			})
 
-		console.log('Submitting form', newRow)
-		props.onSubmit(newRow)
-
+			console.log('Submitting form', newRow)
+			props.onSubmit(newRow)
+		}
 		// resetting
 		setIsFormValid(false)
 		setFormControls({...initialFormControls})
@@ -120,7 +132,7 @@ export const Form = props => {
 					disabled={!isFormValid}
 					onClick={submitForm}
 				>
-					ADD
+					{ isEditMode ? 'EDIT' : 'ADD' }
 				</Button>
 			</form>
 		</div>
