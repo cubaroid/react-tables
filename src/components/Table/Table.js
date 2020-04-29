@@ -3,7 +3,7 @@ import classes from './Table.module.scss'
 import Button from '../UI/Button/Button';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-export const Table = ({ headers, data, copyTable, tableId, rowRemove }) => {
+export const Table = ({ headers, data, copyTable, tableId, rowRemove, rowEdit }) => {
 	const renderHeaders = () => {
 		return (
 			<tr 
@@ -45,7 +45,7 @@ export const Table = ({ headers, data, copyTable, tableId, rowRemove }) => {
 						<td key={`cell_${idx}_actions`} className={[classes.table__cell, classes['table__cell--actions']].join(' ')}>
 							<span 
 								className={classes['table__cell--edit']}
-								onClick={() => console.log('Edit click', tableId, idx)}
+								onClick={() => rowEdit(tableId, idx)}
 							>
 								Edit
 							</span>

@@ -1,109 +1,51 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classes from './Form.module.scss'
 import Input from '../UI/Input/Input'
 import Button from '../UI/Button/Button'
 import validateControl from '../../utils/validators'
+import {connect} from 'react-redux';
 
-export const Form = props => {
-	const initialFormControls = {
-		name: {
-			value: '',
-			type: 'text',
-			label: 'Name',
-			errorMessage: 'Please provide a valid name',
-			valid: false,
-			touched: false,
-			validation: {
-				required: true
-			}
-		},
-		surname: {
-			value: '',
-			type: 'text',
-			label: 'Surname',
-			errorMessage: 'Please provide a valid password',
-			valid: false,
-			touched: false,
-			validation: {
-				required: true
-			}
-		},
-		age: {
-			value: '',
-			type: 'number',
-			label: 'Age',
-			errorMessage: 'Please provide a valid age',
-			valid: false,
-			touched: false,
-			validation: {
-				required: true,
-				minValue: 12
-			}
-		},
-		city: {
-			value: '',
-			type: 'text',
-			label: 'City',
-			errorMessage: 'Please provide a valid city',
-			valid: false,
-			touched: false,
-			validation: {
-				required: true
-			}
-		},
-	}
-
-	const editRowAddressInitialState = {
-		tableId: null,
-		rowId:null
-	}
-
-	const [isFormValid, setIsFormValid] = useState(false)
-	const [isEditMode, setIsEditMode] = useState(false)
-	const [editRowAddress, setEditRowAddress] = useState(editRowAddressInitialState)
-
-	const [formControls, setFormControls] = useState(initialFormControls)
-
+const Form = props => {
 	const onChangeHandler = (event, key) => {
-		const _formControls = { ...formControls },
-			control = { ..._formControls[key] }
+		//const _formControls = { ...formControls },
+			//control = { ..._formControls[key] }
 
-		control.value = event.target.value
-		control.touched = true
-		control.valid = validateControl(control.value, control.validation)
-		_formControls[key] = control
-		let _isFormValid = true
+		//control.value = event.target.value
+		//control.touched = true
+		//control.valid = validateControl(control.value, control.validation)
+		//_formControls[key] = control
+		//let _isFormValid = true
 
-		Object.keys(_formControls).forEach( name => {
-			_isFormValid = _formControls[name].valid && _isFormValid
-		})
+		//Object.keys(_formControls).forEach( name => {
+			//_isFormValid = _formControls[name].valid && _isFormValid
+		//})
 
-		setIsFormValid(_isFormValid)
-		setFormControls(_formControls)
+		//setIsFormValid(_isFormValid)
+		//setFormControls(_formControls)
 	} 
 
 	const submitForm = (e) => {
-		e.preventDefault()
+		//e.preventDefault()
 
-		if ( isEditMode ) {
-			setIsEditMode(false)
-			setEditRowAddress(editRowAddressInitialState)
-		} else {
-			const newRow = Object.keys(formControls).map( key => {
-				return formControls[key].value
-			})
+		//if ( isEditMode ) {
+			//setIsEditMode(false)
+			//setEditRowAddress(editRowAddressInitialState)
+		//} else {
+			//const newRow = Object.keys(formControls).map( key => {
+				//return formControls[key].value
+			//})
 
-			console.log('Submitting form', newRow)
-			props.onSubmit(newRow)
-		}
-		// resetting
-		setIsFormValid(false)
-		setFormControls({...initialFormControls})
+			//console.log('Submitting form', newRow)
+			//props.onSubmit(newRow)
+		//}
+		//// resetting
+		//setIsFormValid(false)
+		//setFormControls({...initialFormControls})
 	}
 
 	const renderInputs = () => {
-		return Object.keys(formControls).map( ( key, index ) => {
-			const control = formControls[key]
+		return Object.keys(props.formControls).map( ( key, index ) => {
+			const control = props.formControls[key]
 			return (
 				<Input
 					key={key + index}
@@ -129,12 +71,30 @@ export const Form = props => {
 				<Button
 					type="primary"
 					block="true"
-					disabled={!isFormValid}
+					disabled={!props.isFormValid}
 					onClick={submitForm}
 				>
-					{ isEditMode ? 'EDIT' : 'ADD' }
+					{ props.isEditMode ? 'EDIT' : 'ADD' }
 				</Button>
 			</form>
 		</div>
 	)
 }
+
+
+function mapStateToProps(state) {
+	return {
+		formControls: state.form.formControls,
+		isFormValid: state.form.isFormValid,
+		isEditMode: state.form.isEditMode,
+		editRowAddress: state.form.editRowAddress
+	}
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

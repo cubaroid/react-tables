@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classes from './App.module.scss'
-import { Form } from './components/AddRowForm/Form'
+import Form  from './components/AddRowForm/Form'
 import { Table } from './components/Table/Table';
 import {connect} from 'react-redux';
 import { addRow, removeRow, copyTable } from './store/actions/table.actions';
@@ -18,8 +18,9 @@ function App(props) {
 		props.removeRow({tableId, rowId})
 	}
 
-	const handleRowEdit = () => {
-
+	const handleRowEdit = (tableId, rowIdx) => {
+		console.log('trying to edit row...', tableId, rowIdx)
+		const table = {...props.tableState.find( table => table.id === tableId )}
 	}
 
 	return (
